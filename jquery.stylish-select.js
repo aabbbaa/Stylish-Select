@@ -352,7 +352,11 @@ Dual licensed under the MIT and GPL licenses.
                 navigateList(currentIndex);
             }
 
-            $containerDiv.bind('click.sSelect',function(){
+            $containerDiv.bind('click.sSelect',function(e){
+                // in IE when we try to use the scrollbars, it generates a click event that bubbles up to the body (where we close the dropdown), 
+                // so we stop it
+                e.stopPropagation(); 
+                
                 keyPress(this);
             });
 
