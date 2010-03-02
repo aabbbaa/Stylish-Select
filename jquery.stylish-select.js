@@ -50,14 +50,15 @@ Dual licensed under the MIT and GPL licenses.
 		var defaults = {
 			defaultText: 'Please select',
 			animationSpeed: 0, //set speed of dropdown
-			ddMaxHeight: '' //set css max-height value of dropdown
+			ddMaxHeight: '', //set css max-height value of dropdown, 
+            containerClass: '' //additional classes for container div
 		};
 
 		//initial variables
 		var opts = $.extend(defaults, options),
 		$input = $(this),
 		$containerDivText = $('<div class="selectedTxt"></div>'),
-		$containerDiv = $('<div class="newListSelected" tabindex="0"></div>'),
+		$containerDiv = $('<div class="newListSelected ' + opts.containerClass + '" tabindex="0"></div>'),
 		$newUl = $('<ul class="newList"></ul>'),
 		itemIndex = -1,
 		currentIndex = -1,
@@ -90,7 +91,7 @@ Dual licensed under the MIT and GPL licenses.
                         opts.defaultText = option;
                         currentIndex = i;
                     }
-                    $newUl.append($('<li><a href="JavaScript:void(0);">'+option+'</a></li>').data('key', key));
+                    $newUl.append($('<li><a href="#" onclick="return false;">'+option+'</a></li>').data('key', key));
 
                 });
                 //cache list items object
@@ -118,7 +119,7 @@ Dual licensed under the MIT and GPL licenses.
                             opts.defaultText = option;
                             currentIndex = itemIndex;
                         }
-                        $optGroupList.append($('<li><a href="JavaScript:void(0);">'+option+'</a></li>').data('key',key));
+                        $optGroupList.append($('<li><a href="#" onclick="return false;">'+option+'</a></li>').data('key',key));
                     })
                 });
                 //cache list items object
