@@ -59,7 +59,7 @@ Dual licensed under the MIT and GPL licenses.
 		$input = $(this),
 		$containerDivText = $('<div class="selectedTxt"></div>'),
 		$containerDiv = $('<div class="newListSelected ' + opts.containerClass + '" tabindex="0"></div>'),
-		$newUl = $('<ul class="newList"></ul>'),
+		$newUl = $('<ul class="newList" style="visibility:hidden;"></ul>'),
 		itemIndex = -1,
 		currentIndex = -1,
 		keys = [],
@@ -170,13 +170,7 @@ Dual licensed under the MIT and GPL licenses.
             newUlPos();
 
             //run function on browser window resize
-            $(window).bind('resize.sSelect',function(){
-                newUlPos();
-            });
-
-            $(window).bind('scroll.sSelect',function(){
-                newUlPos();
-            });
+            $(window).bind('resize.sSelect scroll.sSelect', newUlPos);
 
             //positioning
             function positionFix(){
@@ -392,8 +386,11 @@ Dual licensed under the MIT and GPL licenses.
             );
 
             //reset left property and hide
-            $newUl.css('left','0').hide();
-
+            $newUl.css({
+                left: '0', 
+                display: 'none', 
+                visibility: 'visible'
+            });
         });
 
     };
