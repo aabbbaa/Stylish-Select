@@ -199,7 +199,10 @@ Dual licensed under the MIT and GPL licenses.
 				}
 
                 //hide all menus apart from this one
-                $('.newList').not($(this).next()).hide().parent().removeClass('newListSelFocus');
+                $('.newList').not($(this).next()).hide()
+                    .parent()
+                        .css('position', 'static')
+                        .removeClass('newListSelFocus');
 
                 //show/hide this menu
                 $newUl.toggle();
