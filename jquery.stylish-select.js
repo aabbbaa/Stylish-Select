@@ -58,7 +58,7 @@ Dual licensed under the MIT and GPL licenses.
 		var opts = $.extend(defaults, options),
 		$input = $(this),
 		$containerDivText = $('<div class="selectedTxt"></div>'),
-		$containerDiv = $('<div class="newListSelected ' + opts.containerClass + '" tabindex="0"></div>'),
+		$containerDiv = $('<div class="newListSelected ' + opts.containerClass + '"></div>'),
 		$newUl = $('<ul class="newList" style="visibility:hidden;"></ul>'),
 		itemIndex = -1,
 		currentIndex = -1,
@@ -72,6 +72,7 @@ Dual licensed under the MIT and GPL licenses.
 
 		//build new list
 		$containerDiv.insertAfter($input);
+        $containerDiv.attr("tabindex", $input.attr("tabindex") || "0");
 		$containerDivText.prependTo($containerDiv);
 		$newUl.appendTo($containerDiv);
 		$input.hide();
