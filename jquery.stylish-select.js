@@ -82,21 +82,35 @@ Dual licensed under the MIT and GPL licenses.
 
             //test for optgroup
             if ($input.children('optgroup').length == 0){
-                $input.children().each(function(i){
-                    var option = $(this).text();
-                    var key = $(this).val();
+                var $children = $input.children(), 
+                    html = "";
+                
+                $children.each(function(i) {
+                    var $elt = $(this), 
+                        option = $elt.text();
 
                     //add first letter of each word to array
                     keys.push(option.charAt(0).toLowerCase());
-                    if ($(this).attr('selected') == true){
+                    if ($elt.attr('selected') == true){
                         opts.defaultText = option;
                         currentIndex = i;
                     }
-                    $newUl.append($('<li><a href="#" onclick="return false;">'+option+'</a></li>').data('key', key));
-
+                    
+                    html += '<li><a href="#" onclick="return false;">';
+                    html += option;
+                    html += "</a></li>"
                 });
+                
+                $newUl.append(html);
+                
+                $("li", $newUl).each(function(i) {
+                    var key = $($children[i]).val();
+                    
+                    $(this).data("key", key);
+                });
+                
                 //cache list items object
-                $newLi = $newUl.children().children();
+                $newLi = $("a", $newUl);
 
             } else { //optgroup
                 $input.children('optgroup').each(function(){
