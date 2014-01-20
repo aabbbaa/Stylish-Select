@@ -39,6 +39,7 @@ Dual licensed under the MIT and GPL licenses.
 			$this = $(this);
 			$this.next().remove();
 			//unbind all events and redraw
+            oldOpts.removeHandlers();
 			$this.unbind('.sSelect').sSelect(oldOpts);
 		}
 	});
@@ -66,9 +67,14 @@ Dual licensed under the MIT and GPL licenses.
 		prevKey = false,
 		prevented = false,
 		$newLi;
+        
+        opts.removeHandlers = function() {
+            $(window).unbind("resize.sSelect scroll.sSelect", newUlPos);
+            $("body").unbind("click.sSelect", bodyClickHandler);
+        };
 
 		//added by Justin Beasley
-		$(this).data('ssOpts',options);
+		$(this).data('ssOpts',opts);
 
 		//build new list
 		$containerDiv.insertAfter($input);
@@ -222,6 +228,7 @@ Dual licensed under the MIT and GPL licenses.
             });
 
             $newLi.bind('click.sSelect',function(e){
+                e.preventDefault();
                 var $clickedLi = $(e.target);
 
                 //update counter
@@ -385,11 +392,12 @@ Dual licensed under the MIT and GPL licenses.
             });
 
             //hide list on blur
-            $('body').bind('click.sSelect',function(){
+            function bodyClickHandler(){
                 $containerDiv.removeClass('newListSelFocus');
                 $newUl.hide();
                 positionHideFix();
-            });
+            }
+            $('body').bind('click.sSelect', bodyClickHandler);
 
             //add classes on hover
             $containerDivText.bind('mouseenter.sSelect',
