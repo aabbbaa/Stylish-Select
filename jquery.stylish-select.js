@@ -41,7 +41,20 @@ Dual licensed under the MIT and GPL licenses.
 			//unbind all events and redraw
             oldOpts.removeHandlers();
 			$this.unbind('.sSelect').sSelect(oldOpts);
-		}
+		}, 
+        disableSS: function(disable) {
+            var elt = $(this);
+            
+            if (disable) {
+                elt.attr("disabled", true);
+                elt.next().addClass("newListDisabled");
+            } else {
+                elt.attr("disabled", false);
+                elt.next().removeClass("newListDisabled");
+            }
+            
+            return this;
+        }
 	});
 
 	$.fn.sSelect = function(options) {
@@ -204,6 +217,10 @@ Dual licensed under the MIT and GPL licenses.
 
             $containerDivText.bind('click.sSelect',function(event){
                 event.stopPropagation();
+                
+                if ($input.attr("disabled")) {
+                    return;
+                }
 
 				//added by Justin Beasley
 				if($(this).data('ssReRender')) {
